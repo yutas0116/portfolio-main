@@ -1,0 +1,2 @@
+このリンクから本登録完了してください
+{{ domein }}/accounts/activat/{{ token.token }}

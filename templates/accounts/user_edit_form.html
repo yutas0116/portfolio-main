@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="POST">
+{% csrf_token %}
+  <div class="form-floating mb-3">
+    <label for="staticEmail２" class="visually-hidden">メールアドレス</label>
+    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="{{ user.email }}">
+  </div>
+<div class="form-floating mb-3">
+  <input type="email" class="form-control" id="floatingInput" name = 'email' value={{ user.email }} placeholder="name@example.com">
+  <label for="floatingInput" >メールアドレス</label>
+</div>
+<div class="form-floating mb-3">
+    <label for="staticEmail２" class="visually-hidden">メールアドレス</label>
+    <input type="text" readonly class="form-control-plaintext" id="staticEmail2" value="{{ user.username }}">
+  </div>
+<div class="form-floating">
+  <input type="text" class="form-control" id="floatingPassword" name = 'username' value={{ user.username }} placeholder="Password">
+  <label for="floatingPassword">ユーザー名</label>
+</div>
+
+<div class="form-floating mb-3">
+    <button type="submit" class="btn btn-primary btn-block my-3">ユーザー情報変更</button>
+</div>
+</form>
+ <a href = '{% url 'accounts:change_password' %}'>パスワード更新はこちら</a>
+{% endblock content %}
+ 

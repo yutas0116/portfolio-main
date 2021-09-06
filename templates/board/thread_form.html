@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% block content %}
+<form method="POST">
+{% csrf_token %}
+<div class="row g-3 align-items-center">
+  <div class="col-auto">
+    <label for="inputPassword6" class="col-form-label">スレッド投稿</label>
+  </div>
+  <div class="col-auto">
+    <input type="text" id="inputPassword6"name='title'class="form-control" aria-describedby="passwordHelpInline">
+  </div>
+</div>
+<div class="form-floating mb-3">
+    <button type="submit" class="btn btn-primary btn-block my-3">送信</button>
+</div>
+</form>
+
+
+
+{% endblock content %}

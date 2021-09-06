@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="text-center">
+   <h1 class="h5 my-4 ">{{ thread.title }}</h1>
+</div>
+<form class="row g-3"method="POST">
+  <div class="col-auto">
+  {% csrf_token %}
+    <label for="inputPassword2" class="visually-hidden">コメント</label>
+    <input type="textarea" class="form-control" id="floatingTextarea" name='comment' placeholder="コメント">
+  </div>
+  <div class="col-auto">
+    <button type="submit" class="btn btn-primary mb-3">送信</button>
+  </div>
+</form>
+{% for comment in page_obj %}
+<div class="card" style="width: 120rem;">
+  <div class="card-body">
+  　<h6 class="card-subtitle mb-2 text-muted"> 投稿日：　{{ comment.create_at }}</h6>
+    <h5 class="card-title">{{ comment.comment|linebreaks }}</h5>
+    <h6 class="card-subtitle mb-2 text-muted"> 投稿者：　{{ comment.user.username }}</h6>
+  </div>
+{% endfor %}
+<nav class="blog-pagination">
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-primary" href="?page=1">&laquo; 最初に戻る</a>
+                <a class="btn btn-outline-primary" href="?page={{ page_obj.previous_page_number }}">戻る</a>
+            {% endif %}
+    
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-primary" href="?page={{ page_obj.next_page_number }}">次へ</a>
+                <a class="btn btn-outline-primary" href="?page={{ page_obj.paginator.num_pages }}">最後のページ &raquo;</a>
+            {% endif %}
+        </span>
+    </div>
+{% endblock content %}

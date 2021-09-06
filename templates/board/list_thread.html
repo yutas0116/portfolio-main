@@ -1,0 +1,29 @@
+
+{% extends 'base.html' %}
+{% block content %}
+{% load cache %}
+{% cache 20 thread %}
+{% if user.is_authenticated %}
+<h1>こんにちは、{{ user.username }}さん</h1>
+{% endif %}
+{% for thread in page_obj %}
+<a href="{% url 'board:post_comments' thread_id=thread.id %}" class="list-group-item list-group-item-action list-group-item-light">{{ thread.id }}：　{{ thread.title}}</a>
+{% endfor %}
+<nav class="blog-pagination">
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a class="btn btn-outline-primary" href="?page=1">&laquo; 最初に戻る</a>
+                <a class="btn btn-outline-primary" href="?page={{ page_obj.previous_page_number }}">戻る</a>
+            {% endif %}
+    
+            {% if page_obj.has_next %}
+                <a class="btn btn-outline-primary" href="?page={{ page_obj.next_page_number }}">次へ</a>
+                <a class="btn btn-outline-primary" href="?page={{ page_obj.paginator.num_pages }}">最後のページ &raquo;</a>
+            <div class="row g-3 align-items-center">
+            {% endif %}
+        </span>
+    </div>
+</nav>
+{% endcache %}
+{% endblock content %}

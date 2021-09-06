@@ -1,0 +1,4 @@
+secrets/cloud_sql_proxy
+secrets/memo.yaml
+secrets/secrets.yaml
+secrets/secrets_dev.yaml
