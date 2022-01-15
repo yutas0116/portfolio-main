@@ -32,6 +32,7 @@ class User_Activat_Tokens_Manager(models.Manager):
     def activat_user_by_token(self,token):
         #トークンが存在するか、有効期限が切れていないか探す
         user_activat_token = self.filter(token = token,expired_at__gte = datetime.now()).first()
+        #-------ここまで-------
         user = user_activat_token.user
         user.is_active = True
         user.save()
@@ -49,10 +50,9 @@ class User_Activat_Tokens(models.Model):
 
 
 
-
-# 作成用（トークン、リンクをターミナルで見る）
-#@receiver(post_save,sender=UserModel)
-#def pubulish_token(sender,instance,**kwargs,):
-#    user_activat_token = User_Activat_Tokens.objects.create(user = instance,token = str(uuid4()),expired_at = datetime.now() + timedelta(days=1))
-#    print(f'http://127.0.0.1:8000/accounts/activat/{user_activat_token.token}')
+# トークン作成
+@receiver(post_save,sender=UserModel)
+def pubulish_token(sender,instance,**kwargs,):
+    user_activat_token = User_Activat_Tokens.objects.create(user = instance,token = str(uuid4()),expired_at = datetime.now() + timedelta(days=1))
+    
     
